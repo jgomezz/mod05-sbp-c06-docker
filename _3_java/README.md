@@ -18,6 +18,13 @@ COPY target/*.jar app.jar
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
+
+### Crear componente en proyecto en maven
+```
+mvn clean package
+```
+
+
 ### Construir imagen
 ```
 docker build -t myappjava:1.0 .

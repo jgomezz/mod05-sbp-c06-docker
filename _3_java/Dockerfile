@@ -5,7 +5,7 @@ FROM openjdk:17
 WORKDIR /app
 
 # Copy the JAR file from target directory and rename it to app.jar
-COPY target/app.jar app.jar
+COPY target/*.jar app.jar
 
 # Expose the port your application uses (change 8080 if needed)
 # EXPOSE 8080
