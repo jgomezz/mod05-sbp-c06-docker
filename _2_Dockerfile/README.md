@@ -1,26 +1,24 @@
+--
+## Dockerfile Básico
 
-## Docker
-
-### Crear Dockerfile
-
-```
-├── docker
-│   ├── _1_intro
-│   │   ├── README.md
-│   │   └── www
-│   │       └── index.html
-│   ├── _2_Dockerfile
-│   │   ├── Dockerfile. ******
-│   │   └── README.md
-```
-Contenido del Dockefile
+### Crear un Dockerfile básico
 ```
 # Base image
 FROM openjdk:17
 ```
-### Construir imagen (debe estar dentro de la carpeta _2_Dockerfile)
+
+### Construir la imagen de Docker con el siguiente comando:
 ```
 docker build -t myapp:1.0 .
+```
+
+### Construir el contenedor
+```
+docker run -d --name myapp01 myapp:1.0 
+```
+### Ver los logs
+```
+docker logs myapp01
 ```
 
 ### Inspeccionar imagen
@@ -28,33 +26,63 @@ docker build -t myapp:1.0 .
 docker image inspect myapp:1.0
 ```
 
-## Ejecutar Container
+-
+## Dockerfile para un programa en Java
+
+### Estructura del proyecto
 ```
-docker run -d --name myapp01 myapp:1.0
-```
-## Ver Container
-```
-docker ps
-docker ps -a 
+.
+├── Dockerfile
+├── HelloWorld.java
+└── README.md
 ```
 
-## Ver logs
+### Crear programa HelloWorld.java
 ```
-docker logs myapp01 
-```
-
-## Detener Container
-```
-docker stop myapp01 
-```
-
-## Eliminar Container
-```
-docker rm myapp01 
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
 ```
 
-### Eliminar imagen
+### Crear un Dockerfile
 ```
-docker rmi myapp:1.0
+# Base image
+FROM openjdk:17
+
+# Set working directory
+WORKDIR /app
+
+# Copy source code
+COPY HelloWorld.java /app/
+
+# Compile the Java program
+RUN javac HelloWorld.java
+
+# Command to run the application
+CMD ["java", "HelloWorld"]
 ```
 
+### Construir la imagen de Docker con el siguiente comando:
+```
+docker build -t myapp:2.0 .
+```
+
+### Construir el contenedor
+```
+docker run -d --name myapp02 myapp:2.0 
+```
+
+-
+## NOTA : Para volver a generar la Imagen deben borrar la anterior
+
+### Borar contenedor
+```
+docker rm myapp02
+```
+
+### Borar imagen
+```
+docker rmi myapp:2.0
+```
