@@ -1,5 +1,5 @@
 # Base image
-FROM eclipse-temurin:17-jre-focal
+FROM eclipse-temurin:17-jre
 
 # Set working directory
 WORKDIR /app
